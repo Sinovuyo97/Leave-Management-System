@@ -54,7 +54,7 @@ namespace LeaveManagementSystem.API
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        //builder.WithOrigins("http://localhost:4200", "https://g4l.netlify.app", "https://g4l-api.azure-api.net")
+                        //builder.WithOrigins("http://localhost:4200")
                         builder.AllowAnyOrigin()
                                .AllowAnyHeader()
                                .AllowAnyMethod();
