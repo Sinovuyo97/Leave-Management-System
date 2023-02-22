@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\AccessLevel.cs" />
+    <Compile Remove="Entities\Questionnaire.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain Services\" />
+    <Folder Include="Custom Exceptions\" />
+    <Folder Include="Specifications\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LeaveManagementSystem.Shared\LeaveManagementSystem.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

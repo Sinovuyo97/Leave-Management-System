@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagementSystem.API", "LeaveManagementSystem.API\LeaveManagementSystem.API.csproj", "{CDD4BC74-C4B6-4D13-9087-D6C126725628}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagementSystem.BL", "LeaveManagementSystem.BL\LeaveManagementSystem.BL.csproj", "{12D992DB-A0BF-46BB-A051-61112AB35752}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "LeaveManagementSystem.UI", "LeaveManagementSystem.UI\", "{C74CD5B0-2B79-4A9D-AEF4-C02D0456A4EC}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50002"
+		Debug.AspNetCompiler.PhysicalPath = "LeaveManagementSystem.UI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50002\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50002"
+		Release.AspNetCompiler.PhysicalPath = "LeaveManagementSystem.UI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50002\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50002"
+		SlnRelativePath = "LeaveManagementSystem.UI\"
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagementSystem.Shared", "LeaveManagementSystem.Shared\LeaveManagementSystem.Shared.csproj", "{9F2B6405-E5F6-4AA5-AD81-4B490B980E7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveManagementSystem.DA", "LeaveManagementSystem.DA\LeaveManagementSystem.DA.csproj", "{17173B58-65EA-4F51-ACEB-57949BBC1442}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDD4BC74-C4B6-4D13-9087-D6C126725628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDD4BC74-C4B6-4D13-9087-D6C126725628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDD4BC74-C4B6-4D13-9087-D6C126725628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDD4BC74-C4B6-4D13-9087-D6C126725628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D992DB-A0BF-46BB-A051-61112AB35752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D992DB-A0BF-46BB-A051-61112AB35752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D992DB-A0BF-46BB-A051-61112AB35752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D992DB-A0BF-46BB-A051-61112AB35752}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C74CD5B0-2B79-4A9D-AEF4-C02D0456A4EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C74CD5B0-2B79-4A9D-AEF4-C02D0456A4EC}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F2B6405-E5F6-4AA5-AD81-4B490B980E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F2B6405-E5F6-4AA5-AD81-4B490B980E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F2B6405-E5F6-4AA5-AD81-4B490B980E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F2B6405-E5F6-4AA5-AD81-4B490B980E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17173B58-65EA-4F51-ACEB-57949BBC1442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17173B58-65EA-4F51-ACEB-57949BBC1442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17173B58-65EA-4F51-ACEB-57949BBC1442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17173B58-65EA-4F51-ACEB-57949BBC1442}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50DF087A-91F1-45BA-8CE0-4C731DCD269F}
+	EndGlobalSection
+EndGlobal
