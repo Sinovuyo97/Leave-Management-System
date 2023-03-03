@@ -1,7 +1,6 @@
-
-
+using LeaveManagementSystem.BL.Interfaces;
+using LeaveManagementSystem.BL;
 using LeaveManagementSystem.DA;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Reflection;
 using System.Text.Json.Serialization;
+using LeaveManagementSystem.Infrustructure.Services;
+using LeaveManagementSystem.Infrustructure.Repositories;
+using LeaveManagementSystem.DA.Repositories;
+using LeaveManagementSystem.DA.Services;
+using System.Reflection;
 
 namespace LeaveManagementSystem.API
 {
@@ -38,7 +40,12 @@ namespace LeaveManagementSystem.API
 
             services.AddControllers();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILeaveService, LeaveService>();
+            services.AddScoped<ILeaveRepository, LeaveRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LeaveManagementSystem.API", Version = "v1" });

@@ -15,5 +15,12 @@ namespace LeaveManagementSystem.DA
 
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Leave> Leaves { get; set; }
+        public DbSet<Approver> Approvers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Leave>().Property(x => x.UsedDays).HasPrecision(10, 2);
+        }
     }
 }

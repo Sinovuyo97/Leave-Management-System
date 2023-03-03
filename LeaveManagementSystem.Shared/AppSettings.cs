@@ -9,6 +9,10 @@ namespace LeaveManagementSystem.Shared
     public class AppSettings
     {
         public string Secret { get; set; }
-        
+        public decimal MaxAnnualAllowed { get; set; }
+        public decimal MaxSickAllowed { get; set; }
+        public decimal MaxFamilyResponsibility { get; set; }
+        public decimal LeaveDaysPerMonth { get; set; }
+
     }
 }

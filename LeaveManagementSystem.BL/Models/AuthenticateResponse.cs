@@ -1,8 +1,5 @@
-﻿using LeaveManagementSystem.BL.Entities;
+﻿
 using LeaveManagementSystem.BL.Enum;
-using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace LeaveManagementSystem.BL.Models
 {

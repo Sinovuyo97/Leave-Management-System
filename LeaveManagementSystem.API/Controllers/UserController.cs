@@ -39,6 +39,7 @@ namespace LeaveManagementSystem.API.Controllers
         }
 
         [Authorize(Role.Manager,Role.HR_Administrator)]
+        //[AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] RegisterRequest user)
         {
