@@ -14,6 +14,7 @@ using LeaveManagementSystem.Infrustructure.Repositories;
 using LeaveManagementSystem.DA.Repositories;
 using LeaveManagementSystem.DA.Services;
 using System.Reflection;
+using LeaveManagementSystem.Shared;
 
 namespace LeaveManagementSystem.API
 {
@@ -32,8 +33,7 @@ namespace LeaveManagementSystem.API
         public void ConfigureServices(IServiceCollection services)
         {
             // configure strongly typed settings objects
-            
-
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
