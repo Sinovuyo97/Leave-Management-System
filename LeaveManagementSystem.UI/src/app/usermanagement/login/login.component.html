@@ -1,0 +1,173 @@
+<div class="container">
+  <form
+    class="form-horizontal"
+    role="form"
+    [formGroup]="loginForm"
+    (submit)="login()"
+  >
+    <div class="logo">
+      <img width="292px" src="../../assets/download.png" alt="" />
+    </div>
+
+    <h6 class="m-3">Enter your credentials to access your account</h6>
+    <div class="form-group m-3">
+      <label
+        for="inputEmail4"
+        class="form-label"
+        [ngClass]="{
+          'validation-error-text':
+            loginForm.controls['Email'].invalid &&
+            loginForm.controls['Email'].touched
+        }"
+        >Email Address <span class="validation-error-text">*</span></label
+      >
+      <input
+        type="email"
+        class="form-control"
+        id="inputEmail4"
+        formControlName="Email"
+        [ngClass]="{
+          'red-border':
+            loginForm.controls['Email'].invalid &&
+            loginForm.controls['Email'].touched
+        }"
+      />
+      <div
+        class="validation-error-text"
+        *ngIf="
+          loginForm.controls['Email'].invalid &&
+          loginForm.controls['Email'].touched
+        "
+      >
+        <div *ngIf="loginForm.controls['Email'].hasError('required')">
+          Please enter your email.
+        </div>
+      </div>
+
+      <div
+        class="validation-error-text"
+        *ngIf="
+          loginForm.controls['Email'].invalid &&
+          loginForm.controls['Email'].touched
+        "
+      >
+        <div *ngIf="loginForm.controls['Email'].hasError('email')">
+          Email not valid.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group m-3">
+      <label
+        for="inputPassword4"
+        class="form-label"
+        [ngClass]="{
+          'validation-error-text':
+            loginForm.controls['Password'].invalid &&
+            loginForm.controls['Password'].touched
+        }"
+        >Password <span class="validation-error-text">*</span></label
+      >
+      <input
+        type="password"
+        class="form-control"
+        id="inputPassword4"
+        formControlName="Password"
+        [ngClass]="{
+          'red-border':
+            loginForm.controls['Password'].invalid &&
+            loginForm.controls['Password'].touched
+        }"
+      />
+      <div
+        class="validation-error-text"
+        *ngIf="
+          loginForm.controls['Password'].invalid &&
+          loginForm.controls['Password'].touched
+        "
+      >
+        <div *ngIf="loginForm.controls['Password'].hasError('required')">
+          Please enter your password.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group m-3">
+      <div
+      class="validation-error-text mt-3 mb-3"
+      *ngIf="
+        loginForm.invalid
+      "
+    >
+      <div *ngIf="loginForm.controls['Email'].hasError('isUserNameOrPasswordIncorrect') || loginForm.controls['Password'].hasError('isUserNameOrPasswordIncorrect')"
+      >
+        {{ serverErrorMessage }}
+      </div>
+    </div>
+    </div>
+
+    <button
+      type="submit m-3"
+      class="btn btn-primary btn-block btn btn-sm bg-2 gradient-primary mb-0 btn-dark"
+    >
+      Log in
+    </button>
+    <a class="forgot" href="forgot-password.html"
+      >Forgot your email or password?</a
+    >
+  </form>
+
+  <div class="icons">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a
+          class="social-icon text-center"
+          target="_blank"
+          (click)="
+            openSocialMediaOnNewTab('https://www.facebook.com/geeks4learning/')
+          "
+          ><i class="fa-brands fa-facebook"></i
+        ></a>
+      </li>
+      <li class="list-inline-item">
+        <a
+          class="social-icon text-center"
+          target="_blank"
+          (click)="
+            openSocialMediaOnNewTab('https://twitter.com/geeks4learning')
+          "
+          ><i class="fa-brands fa-twitter"></i
+        ></a>
+      </li>
+      <li class="list-inline-item">
+        <a
+          class="social-icon text-center"
+          target="_blank"
+          (click)="
+            openSocialMediaOnNewTab('https://www.instagram.com/geeks4learning/')
+          "
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+      </li>
+      <li class="list-inline-item">
+        <a
+          class="social-icon text-center"
+          target="_blank"
+          (click)="
+            openSocialMediaOnNewTab(
+              'https://www.linkedin.com/company/geeks4learning'
+            )
+          "
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+      </li>
+    </ul>
+  </div>
+</div>
+<footer class="dark-blue m-0 p-3">
+  <p class="text-center">
+    geeks4learning © 2022 Powered by geeks4learning Technologies <br /><i
+      >Terms and conditions | Privacy policy</i
+    >
+  </p>
+</footer>

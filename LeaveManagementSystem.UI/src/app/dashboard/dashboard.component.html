@@ -1,0 +1,11 @@
+<ng-container *ngIf="isHR_Admin;else payrolladmin">
+  <app-admin-dashboard></app-admin-dashboard>
+</ng-container>
+<ng-template #payrolladmin>
+    <ng-container *ngIf="isPayroll_Admin;else employee">
+      <app-trainer-dashboard></app-trainer-dashboard>
+    </ng-container>
+</ng-template>
+<ng-template #employee>
+  <app-trainee-dashboard></app-trainee-dashboard>
+</ng-template>

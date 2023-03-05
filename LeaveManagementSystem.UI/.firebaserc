@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "filleupload-d41e8"
+  },
+  "targets": {
+    "filleupload-d41e8": {
+      "hosting": {
+        "LeaveManagementSystem.UI": [
+          "filleupload-d41e8"
+        ]
+      }
+    }
+  }
+}
