@@ -6,15 +6,12 @@ import { LeaveTypes } from 'src/app/shared/global/leave-types';
 import { TokenService } from 'src/app/usermanagement/login/services/token.service';
 import { LeaveRequestComponent } from '../../leave-request/leave-request.component';
 import { LeaveService } from '../../services/leave.service';
-
 @Component({
-  selector: 'app-trainee',
-  templateUrl: './trainee.component.html',
-  styleUrls: ['./trainee.component.css']
+  selector: 'app-requester',
+  templateUrl: './requester.component.html',
+  styleUrls: ['./requester.component.css']
 })
-export class TraineeComponent implements OnInit {
-
-
+export class RequesterComponent {
   modalDialog: MdbModalRef<LeaveRequestComponent> | null = null;
   leaveApplications: any[] = [];
   user: any;
@@ -111,5 +108,6 @@ export class TraineeComponent implements OnInit {
         break;
     }
   }
+
 
 }

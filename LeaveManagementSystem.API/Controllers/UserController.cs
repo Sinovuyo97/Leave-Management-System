@@ -38,8 +38,8 @@ namespace LeaveManagementSystem.API.Controllers
             return Ok(await _userService.GetPagedUsersAsync(skip, take));
         }
 
-        [Authorize(Role.Manager,Role.HR_Administrator)]
-        //[AllowAnonymous]
+        //[Authorize(Role.Manager,Role.HR_Administrator)]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] RegisterRequest user)
         {

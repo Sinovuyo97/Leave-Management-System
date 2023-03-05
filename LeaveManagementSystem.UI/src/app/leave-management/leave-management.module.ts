@@ -13,19 +13,19 @@ import { NgChartsModule } from 'ng2-charts';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
-import { TraineeComponent } from './views/trainee/trainee.component';
 import { LeaveReviewComponent } from './leave-review/leave-review.component';
 import { ApproverComponent } from './views/approver/approver.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { RequesterComponent } from './views/requester/requester.component';
 
 @NgModule({
   declarations: [
     LeaveManagementComponent,
     LeaveRequestComponent,
     LeaveBalanceCardComponent,
-    TraineeComponent,
     LeaveReviewComponent,
-    ApproverComponent
+    ApproverComponent,
+    RequesterComponent
   ],
   imports: [
     BrowserModule,

@@ -53,7 +53,7 @@ export class LeaveService {
   }
 
   getLeaveBalances(userId: any) {
-    return this.http.get(`${environment.apiUrl}/leave/balances/${userId}`);
+    return this.http.get(`${environment.apiUrl}/Leave/balances/${userId}`);
   }
 
   uploadAttachments(value: any) : Observable <any> {
