@@ -17,15 +17,30 @@ import { FileUpload } from '../models/file-upload';
   styleUrls: ['./leave-request.component.css']
 })
 export class LeaveRequestComponent implements OnInit {
+  getFileIcon(fileName: any) {
+    if (fileName.toLowerCase().includes('.pdf')) {
+      return "fa-file-pdf";
+    } else if (fileName.toLowerCase().includes('.png')
+      || fileName.toLowerCase().includes('.jpeg')
+      || fileName.toLowerCase().includes('.jpg')) {
+      return "fa-file-image";
+    } else {
+      return "fa-file";
+    }
+  }
+
+  openOnNewTab(link: any) {
+    window.open(link, '_blank');
+  }
 
   formModel: any;
   userId: any;
-  daysAvailable: number | undefined = 0;
+  daysAvailable: number | undefined = 10;
   daysRemaining: number = 0;
 
   keys = Object.keys;
 
-  leaveTypes = LeaveTypes;
+  leaveTypes: any[]= [];
   daysType = LeaveDayType;
   halfDaySchedule = HalfDaySchedule;
 
@@ -45,6 +60,7 @@ export class LeaveRequestComponent implements OnInit {
   ngOnInit(): void {
     let user: any = this.tokenService.getDecodeToken();
     this.userId = user.id;
+    this.leaveTypes.push(LeaveTypes.Please_Select_A_Leave,LeaveTypes.Annual,LeaveTypes.Family_Responsibility,LeaveTypes.Sick,LeaveTypes.Unpaid)
     this.buildForm();
     console.log(this.formModel.value)
   }
@@ -128,9 +144,16 @@ export class LeaveRequestComponent implements OnInit {
     var leaveType = this.formModel.get('leaveType').value;
     switch (leaveType) {
       case LeaveTypes.Annual:
+        this.daysAvailable = 10;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
+        break;
       case LeaveTypes.Family_Responsibility:
+        this.daysAvailable = 3;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
+        break;
       case LeaveTypes.Sick:
-        this.daysAvailable = this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
+        this.daysAvailable = 3;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
+        break;
+      case LeaveTypes.Unpaid:
+        this.daysAvailable = 3128;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
         break;
       default:
         return 0;
@@ -189,6 +212,20 @@ export class LeaveRequestComponent implements OnInit {
         return false;
       default:
         return true;
+    }
+  }
+
+  onLeaveTypeSelected(leaveType: any) {
+    if (
+      (leaveType === LeaveTypes.Sick && Number(this.formModel.get('usedDays').value) > 1)
+      || leaveType === LeaveTypes.Family_Responsibility) {
+      this.formModel.get('documents').setValidators(Validators.required);
+      this.formModel.get('documents').updateValueAndValidity();
+      return true;
+    } else {
+      this.formModel.get('documents').setValidators(null);
+      this.formModel.get('documents').updateValueAndValidity();
+      return false;
     }
   }
 

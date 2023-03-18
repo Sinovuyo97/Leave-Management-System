@@ -10,7 +10,7 @@
             <i class="fa-solid fa-xmark"></i></a>
         </div>
       </div>
-      <hr class="horizontal dark my-4" />
+      <hr class="horizontal dark my-3" />
     </div>
     <div class="card-body pt-0">
       <form [formGroup]="formModel" autocomplete="off">
@@ -30,8 +30,8 @@
                         formModel.controls['leaveType'].invalid &&
                         formModel.controls['leaveType'].touched
                     }">
-                    <option *ngFor="let leaveType of keys(leaveTypes)" [ngValue]="leaveType"
-                      [disabled]="isAllowed(leaveType) || isDefault(leaveType)">
+                    <option *ngFor="let leaveType of leaveTypes"
+                      [disabled]="isDefault(leaveType)">
                       {{ leaveType | removeUnderscore }}
                     </option>
                   </select>
@@ -56,7 +56,12 @@
                   formModel.controls['endDate'].invalid &&
                   formModel.controls['endDate'].touched
               }">Date range<span class="red-text">*</span></label>
-              <mat-form-field appearance="fill" class="example-form-field">
+              <mat-form-field appearance="fill" class="example-form-field" [ngClass]="{
+                'border-red':
+                formModel.controls['startDate'].invalid &&
+                formModel.controls['startDate'].touched ||
+                formModel.controls['endDate'].invalid &&
+                formModel.controls['endDate'].touched }">
                 <mat-date-range-input [rangePicker]="rangePicker" [dateFilter]="holidaysAndWeekendsDatesFilter">
                   <input matStartDate placeholder="Start date" formControlName="startDate">
                   <input matEndDate placeholder="End date" formControlName="endDate"
@@ -110,7 +115,7 @@
                 <div formArrayName="leaveSchedule" *ngFor="let item of formModel.controls['leaveSchedule'].controls; let i = index">
                   <div class="row" [formGroupName]="i">
                     <div class="col">
-                      {{ getFormControl(item, 'date').value | date: 'd MMM' }}
+                      {{ getFormControl(item, 'date').value  | date: 'EEEE, d MMM' }}
                     </div>
                     <div class="col">
                       <select formControlName="leaveDayType" class="leave-day-duration" (change)='updateUsedDays(i)'>
@@ -120,20 +125,22 @@
                     </div>
                     <div class="col">
                       <select formControlName="halfDaySchedule" class="leave-day-duration">
-                        <option *ngFor="let item of keys(halfDaySchedule)" [ngValue]="item">{{item | removeUnderscore }}</option>
+                        <option *ngFor="let item of keys(halfDaySchedule)" [ngValue]="item">{{item | removeUnderscore }}
+                        </option>
                       </select>
                     </div>
                   </div>
                 </div>
 
-                <p *ngIf="negativeDays" class="alert alert-danger">
+                <p *ngIf="negativeDays" class="alert alert-danger mt-2 mb-3">
                   <i class="fa-solid fa-triangle-exclamation"></i> Leave days exceeded
                 </p>
-                <hr class="horizontal dark my-4" />
-                <h5 class="form-control-label">
+
+                <hr class="horizontal dark my-2" />
+                <h6 class="form-control-label">
                   {{ calculateDaysRequested() }} days of {{ formModel.controls['leaveType'].value | removeUnderscore }}
                   Leave
-                </h5>
+                </h6>
                 <p>
                   {{ calculateDaysRemaining() }} days remaining
                 </p>
@@ -142,7 +149,7 @@
           </div>
         </div>
 
-        <!-- learners comments -->
+        <!-- requester comments -->
         <div class="row mt-3">
           <div class="col">
             <div class="form-group">
@@ -177,9 +184,13 @@
                   'red-text':
                     formModel.controls['documents'].invalid &&
                     formModel.controls['documents'].touched
-                }">Attachments
-
-                <div class="attachment-block">
+                }">Upload attachments<span *ngIf="onLeaveTypeSelected(formModel.controls['leaveType'].value)"
+                  class="red-text">*</span>
+                <div class="attachment-block" [ngClass]="{
+                    'attachment-block-red':
+                      formModel.controls['documents'].invalid &&
+                      formModel.controls['documents'].touched
+                  }">
                   <div class="row">
                     <div class="col-5">
                       <i class="fa-solid fa-paperclip paperclip"></i>
@@ -201,21 +212,31 @@
                     formModel.controls['documents'].invalid &&
                     formModel.controls['documents'].touched
                 }">
+              <!-- <div class="progress" *ngIf="uploadProgress | async as progress">
+                  <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': progress + '%' }"></div>
+               </div> -->
 
-                <div class="row mt-3">
-                  <div class="col">
-                    <div class="file-attachment">
-                      {{ formModel.controls['documents'].value }}
-                    </div>
-                  </div>
+              <div class="row mt-3" *ngIf="formModel.controls['documents'].value.length > 0">
+                <div class="col">
+                  <label class="form-control-label">Attachments</label>
+                  <ul>
+                    <li *ngFor="let attachment of formModel.controls['documents'].value">
+                      <div class="bg-5-g4l-greeny-blue border-radius cursor-pointer fit-content p-1"
+                        (click)="openOnNewTab(attachment?.filePath)">
+                        <a class="p-2"><i class="fa-solid" [class]="getFileIcon(attachment?.fileName)"></i>
+                          &nbsp;{{ attachment?.fileName }}</a>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
+              </div>
 
               <div class="red-text" *ngIf="
                   formModel.controls['documents'].invalid &&
                   formModel.controls['documents'].touched
                 ">
                 <div *ngIf="formModel.controls['documents'].errors.required">
-                  Please type your documents for the approvers
+                  Please attach your files for the approvers
                 </div>
               </div>
             </div>

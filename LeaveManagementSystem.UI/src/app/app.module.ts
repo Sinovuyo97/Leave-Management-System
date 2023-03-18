@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
-
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LeaveManagementModule } from './leave-management/leave-management.module';
@@ -27,6 +27,7 @@ import { UsermanagementModule } from './usermanagement/usermanagement.module';
     AppRoutingModule,
     ReactiveFormsModule,
     LeaveManagementModule,
+    BrowserAnimationsModule,
     UsermanagementModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
