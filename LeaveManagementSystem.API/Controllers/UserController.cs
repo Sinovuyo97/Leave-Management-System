@@ -44,8 +44,7 @@ namespace LeaveManagementSystem.API.Controllers
             return Ok(await _userService.GetUsersByRoleAsync(role));
         }
 
-        //[Authorize(Role.Manager,Role.Payroll_Administrator)]
-        [AllowAnonymous]
+        [Authorize(Role.Manager,Role.Payroll_Administrator)]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] RegisterRequest user)
         {
