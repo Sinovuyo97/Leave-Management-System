@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LeaveManagementSystem.BL.Models
+namespace LeaveManagementSystem.BL.Models.request
 {
     public class UpdateRequest
     {
@@ -18,5 +18,6 @@ namespace LeaveManagementSystem.BL.Models
         public string Client { get; set; }
         public Career? Career { get; set; }
         public Role? Role { get; set; }
+        public DateTime WorkStartDate { get; set; }
     }
 }

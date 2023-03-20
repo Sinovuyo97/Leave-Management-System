@@ -1,5 +1,8 @@
-﻿
+﻿using LeaveManagementSystem.BL.Entities;
 using LeaveManagementSystem.BL.Enum;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LeaveManagementSystem.BL.Models
 {
@@ -10,6 +13,7 @@ namespace LeaveManagementSystem.BL.Models
         public Career Career { get; set; }
         public Role Role { get; set; }
         public string Email { get; set; }
+        public Guid SponsorId { get; set; }
         public string Token { get; set; }
     }
 }

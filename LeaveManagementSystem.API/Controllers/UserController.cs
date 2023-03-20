@@ -1,8 +1,7 @@
 ﻿using LeaveManagementSystem.API.Authorization;
 using LeaveManagementSystem.BL.Enum;
 using LeaveManagementSystem.BL.Interfaces;
-using LeaveManagementSystem.BL.Models;
-using LeaveManagementSystem.DA;
+using LeaveManagementSystem.BL.Models.request;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,7 +23,7 @@ namespace LeaveManagementSystem.API.Controllers
             _userService = userService;
         } 
 
-        [Authorize(Role.Manager, Role.HR_Administrator,Role.Payroll_Administrator)]
+        [Authorize(Role.Manager, Role.HR_Administrator, Role.Payroll_Administrator)]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -32,13 +31,20 @@ namespace LeaveManagementSystem.API.Controllers
         }
 
         [Authorize(Role.Manager, Role.HR_Administrator, Role.Payroll_Administrator)]
-        [HttpGet("/paged")]
+        [HttpGet("paged")]
         public async Task<IActionResult> Get(int skip = 0, int take = 5)
         {
             return Ok(await _userService.GetPagedUsersAsync(skip, take));
         }
 
-        //[Authorize(Role.Manager,Role.HR_Administrator)]
+        [Authorize(Role.Manager, Role.HR_Administrator, Role.Payroll_Administrator)]
+        [HttpGet("role/{role}")]
+        public async Task<IActionResult> Get(Role role)
+        {
+            return Ok(await _userService.GetUsersByRoleAsync(role));
+        }
+
+        //[Authorize(Role.Manager,Role.Payroll_Administrator)]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] RegisterRequest user)
@@ -47,7 +53,7 @@ namespace LeaveManagementSystem.API.Controllers
             return Ok();
         }
 
-        [Authorize(Role.Manager, Role.HR_Administrator)]
+        [Authorize(Role.Manager, Role.Payroll_Administrator)]
         [HttpPut]
         public async Task<IActionResult> PutAsync([FromBody] UpdateRequest user)
         {
@@ -55,7 +61,7 @@ namespace LeaveManagementSystem.API.Controllers
             return Ok();
         }
 
-        [Authorize(Role.Manager, Role.HR_Administrator)]
+        [Authorize(Role.Manager, Role.Payroll_Administrator)]
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {

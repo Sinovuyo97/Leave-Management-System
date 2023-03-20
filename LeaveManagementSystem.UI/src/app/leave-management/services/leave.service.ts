@@ -13,28 +13,14 @@ export class LeaveService {
   leaveBalance =  new BehaviorSubject<any>(undefined);
 
   constructor(private http: HttpClient) {
-    this.leaveBalance.next([
-      {
-        leaveType: LeaveTypes.Annual,
-        days: 10
-      },
-      {
-        leaveType: LeaveTypes.Family_Responsibility,
-        days: 3
-      },
-      {
-        leaveType: LeaveTypes.Sick,
-        days: 5
-      }
-    ])
   }
 
   applyForLeave(value: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/leave`, value);
+    return this.http.post(`${environment.apiUrl}/Leave`, value);
   }
 
-  getLeaveBalance(): Observable<any> {
-    return this.leaveBalance.asObservable();
+  getLeaveBalance(userId:any) {
+    return this.http.get(`${environment.apiUrl}/leave/approverBalance/${userId}`);
   }
 
   getLeaveApplications(userId: any): Observable<any> {

@@ -15,6 +15,8 @@ using LeaveManagementSystem.DA.Repositories;
 using LeaveManagementSystem.DA.Services;
 using System.Reflection;
 using LeaveManagementSystem.Shared;
+using G4L.UserManagement.API.Middleware;
+using LeaveManagementSystem.API.Authorization;
 
 namespace LeaveManagementSystem.API
 {
@@ -34,18 +36,14 @@ namespace LeaveManagementSystem.API
         {
             // configure strongly typed settings objects
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
             services.AddControllers();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ILeaveService, LeaveService>();
-            services.AddScoped<ILeaveRepository, LeaveRepository>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LeaveManagementSystem.API", Version = "v1" });
@@ -68,7 +66,15 @@ namespace LeaveManagementSystem.API
                     });
             });
 
-    
+            services.AddScoped<ITokenService, TokenService>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILeaveService, LeaveService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILeaveRepository, LeaveRepository>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         }
 
@@ -90,7 +96,11 @@ namespace LeaveManagementSystem.API
 
             app.UseAuthorization();
 
-            
+            // global error handler
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

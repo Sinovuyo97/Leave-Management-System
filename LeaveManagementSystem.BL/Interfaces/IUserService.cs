@@ -1,5 +1,7 @@
 ﻿using LeaveManagementSystem.BL.Entities;
+using LeaveManagementSystem.BL.Enum;
 using LeaveManagementSystem.BL.Models;
+using LeaveManagementSystem.BL.Models.request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +20,6 @@ namespace LeaveManagementSystem.BL.Interfaces
         Task DeleteUserAsync(Guid id);
         Task<User> GetUserAsync(string email);
         Task<IEnumerable<User>> GetPagedUsersAsync(int skip, int take);
+        Task<IEnumerable<User>> GetUsersByRoleAsync(Role role);
     }
 }

@@ -144,16 +144,10 @@ export class LeaveRequestComponent implements OnInit {
     var leaveType = this.formModel.get('leaveType').value;
     switch (leaveType) {
       case LeaveTypes.Annual:
-        this.daysAvailable = 10;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
-        break;
       case LeaveTypes.Family_Responsibility:
-        this.daysAvailable = 3;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
-        break;
       case LeaveTypes.Sick:
-        this.daysAvailable = 3;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
-        break;
       case LeaveTypes.Unpaid:
-        this.daysAvailable = 3128;  //this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
+        this.daysAvailable = this.leaveBalances.find(x => x.balanceType === leaveType).remaining;
         break;
       default:
         return 0;
@@ -172,6 +166,7 @@ export class LeaveRequestComponent implements OnInit {
   }
 
   applyForLeave() {
+    console.log(this.formModel.value);
     this.leaveService.applyForLeave(this.formModel.value).subscribe(_ => {
       this.toastr.success(`Your leave was successfully created.`);
       this.modalRef.close(true);

@@ -1,10 +1,10 @@
-﻿using G4L.UserManagement.Shared;
+﻿using LeaveManagementSystem.Shared;
 
-namespace G4L.UserManagement.BL.Entities
+namespace LeaveManagementSystem.BL.Entities
 {
     public enum Access
     {
-        New_user, Student, Trainer, Admin
+        New_user, Employee, Payroll_Administrator, HR_Administrator
     }
     public class AccessLevel : BaseEntity
     {

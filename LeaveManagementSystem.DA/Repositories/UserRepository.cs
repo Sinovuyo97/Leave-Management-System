@@ -4,6 +4,7 @@ using LeaveManagementSystem.BL.Entities;
 using LeaveManagementSystem.BL.Enum;
 using LeaveManagementSystem.BL.Interfaces;
 using LeaveManagementSystem.BL.Models;
+using LeaveManagementSystem.BL.Models.request;
 using LeaveManagementSystem.DA;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -55,6 +56,7 @@ namespace LeaveManagementSystem.Infrustructure.Repositories
             // hash password
             user.PasswordHash = BCryptNet.HashPassword(model.Password);
             await _databaseContext.Users.AddAsync(user);
+
             await _databaseContext.SaveChangesAsync();
         }
 
@@ -65,13 +67,23 @@ namespace LeaveManagementSystem.Infrustructure.Repositories
                 return _databaseContext.Set<User>().Where(x => x.Email == email).FirstOrDefaultAsync();
             });
         }
-        public async Task<IEnumerable<User>> listAsync()
+        public async Task<IEnumerable<User>> ListAsync()
         {
             return await Task.Run(() =>
             {
                 return _databaseContext.Set<User>()
-                    .Include("Leaves")
+                    .Include(x => x.Leaves)
                     // .ThenInclude("Documents")
+                    .AsEnumerable();
+            });
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByRoleAsync(Role role)
+        {
+            return await Task.Run(() =>
+            {
+                return _databaseContext.Set<User>()
+                    .Where(x => x.Role == role)
                     .AsEnumerable();
             });
         }

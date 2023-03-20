@@ -4,6 +4,7 @@ using LeaveManagementSystem.BL.Entities;
 using LeaveManagementSystem.BL.Enum;
 using LeaveManagementSystem.BL.Interfaces;
 using LeaveManagementSystem.BL.Models;
+using LeaveManagementSystem.BL.Models.request;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace LeaveManagementSystem.Infrustructure.Services
 {
-    public class UserService : IUserService 
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private ITokenService _tokenService;
@@ -28,6 +29,11 @@ namespace LeaveManagementSystem.Infrustructure.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Allows the registeration of a user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task RegisterUserAsync(RegisterRequest model)
         {
             await _userRepository.CreateUserAsync(model);
@@ -103,8 +109,8 @@ namespace LeaveManagementSystem.Infrustructure.Services
             user.Name = model.Name;
             user.Surname = model.Surname;
             user.Career = (Career)model.Career;
-            user.Client = model.Client;
             user.Email = model.Email;
+            user.WorkStartDate = model.WorkStartDate;
             user.Phone = model.Phone;
             user.Role = (Role)model.Role;
 
@@ -114,6 +120,11 @@ namespace LeaveManagementSystem.Infrustructure.Services
         public async Task<IEnumerable<User>> GetPagedUsersAsync(int skip, int take)
         {
             return await _userRepository.GetPagedListAsync(skip, take);
+        }
+
+        public async Task<IEnumerable<User>> GetUsersByRoleAsync(Role role)
+        {
+            return await _userRepository.GetUsersByRoleAsync(role);
         }
     }
 }

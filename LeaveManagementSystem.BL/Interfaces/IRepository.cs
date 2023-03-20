@@ -10,7 +10,7 @@ namespace LeaveManagementSystem.BL.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
-        Task CreateAsync(TEntity entity);
+        Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(Guid id);
         Task<TEntity> GetByIdAsync(Guid id);

@@ -17,7 +17,7 @@ namespace LeaveManagementSystem.Infrustructure.Repositories
         {
             _databaseContext = databaseContext;
         }
-        public async Task CreateAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await _databaseContext.Set<TEntity>().AddAsync(entity);
             await _databaseContext.SaveChangesAsync();
@@ -38,19 +38,22 @@ namespace LeaveManagementSystem.Infrustructure.Repositories
 
         public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            return await _databaseContext.Set<TEntity>().FindAsync(id);
+            var entity = await _databaseContext.Set<TEntity>().FindAsync(id);
+            return entity;
         }
 
         public virtual async Task<IEnumerable<TEntity>> ListAsync()
         {
-            return await Task.Run(() => {
+            return await Task.Run(() =>
+            {
                 return _databaseContext.Set<TEntity>().AsEnumerable();
             });
         }
 
         public virtual async Task<IEnumerable<TEntity>> ListAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await Task.Run(() => {
+            return await Task.Run(() =>
+            {
                 return _databaseContext.Set<TEntity>().Where(expression)
                     .AsNoTracking().AsEnumerable();
             });

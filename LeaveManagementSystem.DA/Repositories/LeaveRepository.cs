@@ -1,4 +1,5 @@
 ﻿using LeaveManagementSystem.BL.Entities;
+using LeaveManagementSystem.BL.Enum;
 using LeaveManagementSystem.BL.Interfaces;
 using LeaveManagementSystem.Infrustructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace LeaveManagementSystem.DA.Repositories
             _databaseContext = databaseContext;
         }
 
-        public async Task<List<Leave>> GetLeavesToApproveAsync(Guid userId)
+        public async Task<List<Leave>> GetLeavesToApproveByUserIdAsync(Guid userId)
         {
             return await Task.Run(() =>
             {
@@ -34,7 +35,7 @@ namespace LeaveManagementSystem.DA.Repositories
                     .Where(x => x.Id == leaveId)
                     .Include(x => x.Approvers)
                     .Include(x => x.Documents)
-                    .Include(x => x.LeaveSchedule)
+                    .Include(x => x.LeaveSchedules)
                     .FirstOrDefault();
 
                     leaves.Add(leave);
@@ -50,7 +51,9 @@ namespace LeaveManagementSystem.DA.Repositories
             {
                 var databaseEntry = _databaseContext.Leaves
                   .Where(p => p.Id == leave.Id)
-                  .Include(p => p.Approvers)
+                  .Include(x => x.Approvers)
+                  .Include(x => x.Documents)
+                  .Include(x => x.LeaveSchedules)
                   .FirstOrDefault();
 
                 databaseEntry.LeaveType = leave.LeaveType;
@@ -60,10 +63,40 @@ namespace LeaveManagementSystem.DA.Repositories
                 databaseEntry.Comments = leave.Comments;
                 databaseEntry.Documents = leave.Documents;
                 databaseEntry.Approvers = leave.Approvers;
+                databaseEntry.LeaveSchedules = leave.LeaveSchedules;
 
                 _databaseContext.Entry(databaseEntry).State = EntityState.Modified;
 
                 _databaseContext.SaveChanges();
+            });
+        }
+
+        public Task<Leave> GetFullLeaveByIdAsync(Guid id)
+        {
+            return Task.Run(() =>
+            {
+                return _databaseContext.Leaves
+                        .Where(p => p.Id == id)
+                        .Include(x => x.Approvers)
+                        .Include(x => x.Documents)
+                        .Include(x => x.LeaveSchedules)
+                        .FirstOrDefault();
+
+            });
+
+        }
+
+        public async Task<List<Leave>> GetAllLeavesToApproveAsync()
+        {
+            return await Task.Run(() =>
+            {
+                return _databaseContext.Leaves
+                        .Where(p => p.Status != Status.Approved)
+                        .Include(x => x.Approvers)
+                        .Include(x => x.Documents)
+                        .Include(x => x.LeaveSchedules)
+                        .ToListAsync();
+
             });
         }
     }

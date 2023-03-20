@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LeaveManagementSystem.BL.Models
+namespace LeaveManagementSystem.BL.Models.request
 {
     public class AuthenticateRequest
     {

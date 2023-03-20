@@ -1,5 +1,7 @@
 ﻿using LeaveManagementSystem.BL.Entities;
 using LeaveManagementSystem.BL.Enum;
+using LeaveManagementSystem.BL.Models.request;
+using LeaveManagementSystem.BL.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +21,10 @@ namespace LeaveManagementSystem.BL.Models
         public DateTime EndDate { get; set; }
         public decimal UsedDays { get; set; }
         public List<LeaveScheduleRequest> LeaveSchedule { get; set; }
-        //Itumeleng added this
-        public String Comments { get; set; }
+        public string Comments { get; set; }
         public Status Status { get; set; } = Status.Pending;
         public ICollection<ApproverRequest> Approvers { get; set; }
-       
+        public ICollection<DocumentRequest> Documents { get; set; }
+
     }
 }

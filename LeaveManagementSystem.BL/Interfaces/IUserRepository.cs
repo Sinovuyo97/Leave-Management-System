@@ -1,5 +1,6 @@
 ﻿using LeaveManagementSystem.BL.Entities;
-using LeaveManagementSystem.BL.Models;
+using LeaveManagementSystem.BL.Enum;
+using LeaveManagementSystem.BL.Models.request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace LeaveManagementSystem.BL.Interfaces
     {
         Task<User> GetByUserByEmailAsync(string email);
         Task CreateUserAsync(RegisterRequest user);
+        Task<IEnumerable<User>> GetUsersByRoleAsync(Role role);
     }
 }
