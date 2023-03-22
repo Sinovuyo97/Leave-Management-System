@@ -82,12 +82,12 @@ export class LeaveRequestComponent implements OnInit {
       approvers: this.formBuilder.array([
         {
           "userId": "09705200-31FF-4947-4E7D-08DB2A5598B2",
-          "status": "Approved",
+          "status": "Pending",
           "comments": ""
         },
         {
           "userId": "4DBA56DC-58DD-4BE3-835C-08DB1DA7A36A",
-          "status": "Approved",
+          "status": "Pending",
           "comments": ""
         }
       ]), // How do we know who will approver

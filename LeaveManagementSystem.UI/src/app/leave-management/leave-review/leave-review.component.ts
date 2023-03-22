@@ -20,11 +20,6 @@ import { LeaveService } from '../services/leave.service';
 })
 export class LeaveReviewComponent implements OnInit {
 
-  isHR_Admin: boolean | undefined;
-  isPayroll_Admin: boolean | undefined;
-  isEmployee: boolean | undefined;
-  isManager: boolean | undefined;
-
   formModel: any;
   userId: any;
   daysAvailable: number | undefined = 0;
@@ -57,24 +52,6 @@ export class LeaveReviewComponent implements OnInit {
     this.role = sessionStorage.getItem(contants.role);
     this.buildForm(this.request);
     this.populateFormArrays();
-    this.determinRole(this.role);
-  }
-
-  determinRole(role: string | null) {
-    switch (role) {
-      case Roles.Manager:
-        this.isManager = true;
-        break;
-      case Roles.HR_Admin:
-        this.isHR_Admin = true;
-        break;
-      case Roles.Payroll_Admin:
-        this.isPayroll_Admin = true;
-        break;
-      case Roles.Employee:
-        this.isEmployee = true;
-        break;
-    }
   }
 
   buildForm(request: any) {
@@ -101,11 +78,11 @@ export class LeaveReviewComponent implements OnInit {
       this.formModel.get('approvers').push(this.approver(approver));
     });
 
-    // this.request?.leaveSchedule
-    //   .forEach((schedule: any) => {
-    //   if (schedule?.leaveDayType === LeaveDayType.All_day) schedule.usedDays = 1;
-    //   this.formModel.get('leaveSchedule').push(this.leaveSchedule(schedule));
-    // });
+    this.request?.leaveSchedule
+      .forEach((schedule: any) => {
+      if (schedule?.leaveDayType === LeaveDayType.All_day) schedule.usedDays = 1;
+      this.formModel.get('leaveSchedule').push(this.leaveSchedule(schedule));
+    });
 
     this.request?.documents.forEach((document: any) => {
       this.formModel.get('documents').push(this.document(document));
@@ -153,10 +130,10 @@ export class LeaveReviewComponent implements OnInit {
     this.formModel.markAllAsTouched();
 
     switch (this.role) {
-      case Roles.Employee:
+      case Roles.HR_Admin:
         form = this.formModel.get('approvers').at(1);
         break;
-      case Roles.Employee:
+      case Roles.Payroll_Admin:
         form = this.formModel.get('approvers').at(0);
         break;
       default:
@@ -177,16 +154,16 @@ export class LeaveReviewComponent implements OnInit {
     });
   }
   updateStatusOnTheRequest() {
-    const trainerForm = this.formModel.get('approvers').at(0);
-    const adminForm = this.formModel.get('approvers').at(1);
+    const payroll_AdministratorForm = this.formModel.get('approvers').at(0);
+    const hr_AdministratorForm = this.formModel.get('approvers').at(1);
 
-    const responseFromTrainer = trainerForm.get('status').value;
-    const responseFromAdmin = adminForm.get('status').value;
+    const responseFromTrainer = payroll_AdministratorForm.get('status').value;
+    const responseFromAdmin = hr_AdministratorForm.get('status').value;
 
-    trainerForm.get('comments').setValidators(null);
-    adminForm.get('comments').setValidators(null);
-    trainerForm.get('comments').updateValueAndValidity();
-    adminForm.get('comments').updateValueAndValidity();
+    payroll_AdministratorForm.get('comments').setValidators(null);
+    hr_AdministratorForm.get('comments').setValidators(null);
+    payroll_AdministratorForm.get('comments').updateValueAndValidity();
+    hr_AdministratorForm.get('comments').updateValueAndValidity();
 
     if (responseFromAdmin === LeaveStatus.Approved && responseFromTrainer === LeaveStatus.Approved) {
       this.formModel.get('status').patchValue(LeaveStatus.Approved);
@@ -197,15 +174,15 @@ export class LeaveReviewComponent implements OnInit {
       this.formModel.get('status').patchValue(LeaveStatus.Rejected);
       switch (this.role) {
         case Roles.Employee:
-          if (trainerForm.get('comments').value === '') {
-            trainerForm.get('comments').setValidators(Validators.required);
-            trainerForm.get('comments').updateValueAndValidity();
+          if (payroll_AdministratorForm.get('comments').value === '') {
+            payroll_AdministratorForm.get('comments').setValidators(Validators.required);
+            payroll_AdministratorForm.get('comments').updateValueAndValidity();
           }
           break;
         case Roles.HR_Admin:
-          if (adminForm.get('comments').value === '') {
-            adminForm.get('comments').setValidators(Validators.required);
-            adminForm.get('comments').updateValueAndValidity();
+          if (hr_AdministratorForm.get('comments').value === '') {
+            hr_AdministratorForm.get('comments').setValidators(Validators.required);
+            hr_AdministratorForm.get('comments').updateValueAndValidity();
           }
           break;
         default:

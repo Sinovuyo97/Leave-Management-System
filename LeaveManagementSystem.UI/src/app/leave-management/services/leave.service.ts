@@ -20,16 +20,12 @@ export class LeaveService {
     return this.http.post(`${this.config.apiUrl}/leave`, value);
   }
 
-  // getLeaves():Observable<any>{
-  //   return this.http.get(`${this.config.apiUrl}/leave`)
-  // }
-
   getLeaveApplications(userId: any): Observable<any> {
     return this.http.get(`${this.config.apiUrl}/leave/${userId}`);
   }
 
-  getLeaveToApprove(): Observable<any> {
-    return this.http.get(`${this.config.apiUrl}/leave`);
+  getLeaveToApprove(userId: any): Observable<any> {
+    return this.http.get(`${this.config.apiUrl}/leave/approve/${userId}`);
   }
 
   updateLeave(leave: any): Observable<any> {

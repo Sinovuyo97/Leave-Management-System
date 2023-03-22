@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LeaveStatus } from 'src/app/shared/global/leave-status';
 import { LeaveTypes } from 'src/app/shared/global/leave-types';
 import { TokenService } from 'src/app/usermanagement/login/services/token.service';
+import { LeaveRequestComponent } from '../../leave-request/leave-request.component';
 import { LeaveReviewComponent } from '../../leave-review/leave-review.component';
 import { LeaveService } from '../../services/leave.service';
 
@@ -29,12 +30,13 @@ export class ApproverComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.tokenService.getDecodeToken();
-    this.getLeavesToApprove();
+    this.getLeavesToApprove(this.user?.id);
   }
 
-  getLeavesToApprove() {
-    this.leaveService.getLeaveToApprove()
-      .subscribe((arg) => {        
+  getLeavesToApprove(userId: any) {
+    this.leaveService.getLeaveToApprove(userId)
+      .subscribe((arg) => {
+        console.log(arg);
         this.leaveApplications = arg;
       });
   }
@@ -51,7 +53,7 @@ export class ApproverComponent implements OnInit {
     });
 
     this.modalDialog.onClose.subscribe(_ => {
-      this.getLeavesToApprove();
+      this.getLeavesToApprove(this.user?.id);
     });
   }
 
@@ -61,7 +63,7 @@ export class ApproverComponent implements OnInit {
 
     this.leaveService.updateLeave(leave)
       .subscribe(_ =>
-        this.getLeavesToApprove()
+        this.getLeavesToApprove(this.user?.id)
       );
   }
 
