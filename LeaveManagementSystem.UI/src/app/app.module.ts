@@ -16,19 +16,24 @@ import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { LoaderInterceptor } from './shared/loader/interceptor/loader.interceptor';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { UsermanagementModule } from './usermanagement/usermanagement.module';
+import { MasterLayoutModule } from './master-layout/master-layout.module';
+import { APP_SERVICE_CONFIG, APP_CONFIG } from './shared/app-config/app-configuration.service';
+import { NavbarareaComponent } from './navbararea/navbararea.component';
 
 @NgModule({
   declarations: [
     LoaderComponent,
     AppComponent,
+    NavbarareaComponent,
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
     LeaveManagementModule,
     BrowserAnimationsModule,
     UsermanagementModule,
+    MasterLayoutModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
@@ -41,6 +46,7 @@ import { UsermanagementModule } from './usermanagement/usermanagement.module';
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG }
   ],
   bootstrap: [AppComponent]
 })

@@ -328,9 +328,9 @@
           </div>
         </div>
         <hr class="horizontal dark my-4" />
-        <!-- Learnership details -->
-        <div *ngIf="isLearner()">
-          <h6 class="heading-small text-muted mb-4">Learnership information</h6>
+        <!-- Work details -->
+        <div>
+          <h6 class="heading-small text-muted mb-4">Work information</h6>
           <div class="row">
             <div class="col-lg-4">
               <div class="form-group">
@@ -384,76 +384,39 @@
               <div class="form-group">
                 <label
                   class="form-control-label"
-                  for="input-client"
+                  for="input-workStartDate"
                   [ngClass]="{
                     'red-text':
-                      formModel.controls['Client'].invalid &&
-                      formModel.controls['Client'].touched
+                      formModel.controls['WorkStartDate'].invalid &&
+                      formModel.controls['WorkStartDate'].touched
                   }"
-                  >Client<span class="red-text">*</span></label
-                >
-                <input
-                  type="text"
-                  id="input-client"
-                  class="form-control"
-                  placeholder="Client"
-                  formControlName="Client"
-                  [ngClass]="{
-                    'red-border':
-                      formModel.controls['Client'].invalid &&
-                      formModel.controls['Client'].touched
-                  }"
-                />
-                <div
-                  class="red-text"
-                  *ngIf="
-                    formModel.controls['Client'].invalid &&
-                    formModel.controls['Client'].touched
-                  "
-                >
-                  <div *ngIf="formModel.controls['Client'].errors.required">
-                    Please enter the client responsible for the learner.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label
-                  class="form-control-label"
-                  for="input-learnershipStartDate"
-                  [ngClass]="{
-                    'red-text':
-                      formModel.controls['LearnershipStartDate'].invalid &&
-                      formModel.controls['LearnershipStartDate'].touched
-                  }"
-                  >Learnership Start Date<span class="red-text">*</span></label
+                  >Work Start Date<span class="red-text">*</span></label
                 >
                 <input
                   type="date"
-                  id="input-learnershipStartDate"
+                  id="input-WorkStartDate"
                   class="form-control"
-                  [placeholder]="user?.learnershipStartDate"
-                  formControlName="LearnershipStartDate"
+                  [placeholder]="user?.WorkStartDate"
+                  formControlName="WorkStartDate"
                   [ngClass]="{
                     'red-border':
-                      formModel.controls['LearnershipStartDate'].invalid &&
-                      formModel.controls['LearnershipStartDate'].touched
+                      formModel.controls['WorkStartDate'].invalid &&
+                      formModel.controls['WorkStartDate'].touched
                   }"
                 />
                 <div
                   class="red-text"
                   *ngIf="
-                    formModel.controls['LearnershipStartDate'].invalid &&
-                    formModel.controls['LearnershipStartDate'].touched
+                    formModel.controls['WorkStartDate'].invalid &&
+                    formModel.controls['WorkStartDate'].touched
                   "
                 >
                   <div
                     *ngIf="
-                      formModel.controls['LearnershipStartDate'].errors.required
+                      formModel.controls['WorkStartDate'].errors.required
                     "
                   >
-                    Please enter the Learnership Start Date.
+                    Please enter the Work Start Date.
                   </div>
                 </div>
               </div>

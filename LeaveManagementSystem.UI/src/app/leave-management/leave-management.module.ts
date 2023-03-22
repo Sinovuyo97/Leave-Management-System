@@ -28,7 +28,6 @@ import { RequesterComponent } from './views/requester/requester.component';
     RequesterComponent
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,

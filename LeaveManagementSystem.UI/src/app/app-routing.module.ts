@@ -10,15 +10,18 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'leave',
-    component: LeaveManagementComponent,
-    canActivate: [ LoginGuard ]
+    path: '',
+    loadChildren: () =>
+      import('./master-layout/master-layout.module').then(
+        (m) => m.MasterLayoutModule
+      ),
+    canActivate: [LoginGuard],
   },
   {
     path: '**',
-    redirectTo: '/login',
-    pathMatch: 'full'
-  }
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

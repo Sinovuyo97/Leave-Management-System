@@ -14,6 +14,10 @@ const routes: Routes = [
     component: MasterLayoutComponent,
     children: [
       {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+      {
         path: 'user-management',
         component: UsermanagementComponent,
         canActivate: [AdminGuard]

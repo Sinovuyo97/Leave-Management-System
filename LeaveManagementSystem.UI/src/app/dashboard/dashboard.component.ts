@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { Chart } from 'chart.js';
 import { Chart, registerables } from 'chart.js';
 import { contants } from '../shared/global/global.contants';
 import { Roles } from '../shared/global/roles';

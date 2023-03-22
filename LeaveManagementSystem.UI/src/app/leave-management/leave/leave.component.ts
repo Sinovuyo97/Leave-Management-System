@@ -33,17 +33,17 @@ export class LeaveComponent implements OnInit {
   }
 
   isAllowed(role: any) {
-    if (this.userRole == Roles.Super_Admin) {
+    if (this.userRole == Roles.Manager) {
       switch (role) {
-        case Roles.Super_Admin:
+        case Roles.Manager:
           return true;
         default:
           return false;
       }
-    } else if (this.userRole == Roles.Admin) {
+    } else if (this.userRole == Roles.HR_Admin) {
       switch (role) {
-        case Roles.Super_Admin:
-        case Roles.Admin:
+        case Roles.Manager:
+        case Roles.HR_Admin:
           return true;
         default:
           return false;

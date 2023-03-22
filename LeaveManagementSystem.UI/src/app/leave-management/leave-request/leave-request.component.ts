@@ -10,6 +10,7 @@ import { LeaveStatus } from 'src/app/shared/global/leave-status';
 import { HalfDaySchedule } from 'src/app/shared/global/half-day-schedule';
 import { UploadService } from '../services/upload.service';
 import { FileUpload } from '../models/file-upload';
+import { ApproversService } from '../services/approvers.service';
 
 @Component({
   selector: 'app-leave-request',
@@ -17,6 +18,7 @@ import { FileUpload } from '../models/file-upload';
   styleUrls: ['./leave-request.component.css']
 })
 export class LeaveRequestComponent implements OnInit {
+  Id: any;
   getFileIcon(fileName: any) {
     if (fileName.toLowerCase().includes('.pdf')) {
       return "fa-file-pdf";
@@ -54,7 +56,8 @@ export class LeaveRequestComponent implements OnInit {
     private leaveService: LeaveService,
     private toastr: ToastrService,
     private tokenService: TokenService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private getApproversService: ApproversService,
   ) { }
 
   ngOnInit(): void {
@@ -78,13 +81,13 @@ export class LeaveRequestComponent implements OnInit {
       status: [ LeaveStatus.Pending ],
       approvers: this.formBuilder.array([
         {
-          "userId": "367286eb-14c6-4055-a8c4-08dab6b961fc",
-          "status": "Pending",
+          "userId": "09705200-31FF-4947-4E7D-08DB2A5598B2",
+          "status": "Approved",
           "comments": ""
         },
         {
-          "userId": "ac4423a8-9132-4ff6-a8c3-08dab6b961fc",
-          "status": "Pending",
+          "userId": "4DBA56DC-58DD-4BE3-835C-08DB1DA7A36A",
+          "status": "Approved",
           "comments": ""
         }
       ]), // How do we know who will approver
@@ -92,6 +95,24 @@ export class LeaveRequestComponent implements OnInit {
     });
   }
 
+  getApprovers() {
+    this.getApproversService.getApprovers(this.Id)
+      .subscribe((response: any) => {
+        response?.sort((a: any, b: any) => b?.role.localeCompare(a?.role))
+          .forEach((approver: any) => {
+            this.formModel.get('approvers').push(this.approver(approver));
+          });
+      }
+      );
+  }
+  approver(approver: any): any {
+    return this.formBuilder.group({
+      userId: [approver?.id, Validators.required],
+      role: [approver?.role, Validators.required],
+      status: [LeaveStatus.Pending, Validators.required],
+      comments: [''],
+    });
+  }
   leaveSchedule(data?: any) {
     return this.formBuilder.group({
       date: [data?.date, Validators.required],

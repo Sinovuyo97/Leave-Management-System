@@ -48,14 +48,16 @@ namespace LeaveManagementSystem.API.Controllers
             var leaveRequests = await _leaveService.GetLeaveRequestsAsync(userId);
             return Ok(leaveRequests);
         }
-        
-        [Authorize(Role.HR_Administrator, Role.Payroll_Administrator)]
+
+        //[Authorize(Role.Manager,Role.HR_Administrator, Role.Payroll_Administrator)]
+        [AllowAnonymous]
         [HttpGet("approve/{userId}")]
         public async Task<IActionResult> GetLeavesToApproveAsync(Guid userId)
         {
             var leaveRequests = await _leaveService.GetLeavesToApproveAsync(userId);
             return Ok(leaveRequests);
         }
+
         [Authorize(Role.Manager, Role.HR_Administrator, Role.Payroll_Administrator)]
         [HttpGet("approverBalance/{userId}")]
         public async Task<IActionResult> GetLeavesBalanceAsync(Guid userId)

@@ -1,58 +1,68 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { LeaveTypes } from 'src/app/shared/global/leave-types';
+import { APP_SERVICE_CONFIG } from 'src/app/shared/app-config/app-configuration.service';
+import { AppConfiguration } from 'src/app/shared/app-config/app-configuration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeaveService {
-
   //mimic the response the the server
   leaveBalance =  new BehaviorSubject<any>(undefined);
 
-  constructor(private http: HttpClient) {
+  constructor(@Inject(APP_SERVICE_CONFIG) private config : AppConfiguration,private http: HttpClient) {``
   }
 
   applyForLeave(value: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/Leave`, value);
+    return this.http.post(`${this.config.apiUrl}/leave`, value);
   }
 
-  getLeaveBalance(userId:any) {
-    return this.http.get(`${environment.apiUrl}/leave/approverBalance/${userId}`);
-  }
+  // getLeaves():Observable<any>{
+  //   return this.http.get(`${this.config.apiUrl}/leave`)
+  // }
 
   getLeaveApplications(userId: any): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/leave/${userId}`);
+    return this.http.get(`${this.config.apiUrl}/leave/${userId}`);
   }
 
-  getLeaveToApprove(userId: any): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/leave/approve/${userId}`);
+  getLeaveToApprove(): Observable<any> {
+    return this.http.get(`${this.config.apiUrl}/leave`);
   }
 
   updateLeave(leave: any): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/leave/${leave?.id}`, leave);
+    return this.http.put(`${this.config.apiUrl}/leave/${leave?.id}`, leave);
   }
-  getAllLeaveApplications(){
-    return this.http.get(`${environment.apiUrl}/leave`);
+
+  getLeaveStats(userId: any){
+    return this.http.get(`${this.config.apiUrl}/leave/approverBalance/${userId}`);
   }
 
   getLeaveBalances(userId: any) {
-    return this.http.get(`${environment.apiUrl}/Leave/balances/${userId}`);
+    return this.http.get(`${this.config.apiUrl}/leave/balances/${userId}`);
   }
+
 
   uploadAttachments(value: any) : Observable <any> {
 
-     return this.http.post(`${environment.apiUrl}/Leave/Post_Attachments`, value);
+     return this.http.post(`${this.config.apiUrl}/leave/Post_Attachments`, value);
   }
 
   getAttachments(leave: any): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/leave/Get_Attachments/${leave?.Id}`);
+    return this.http.get(`${this.config.apiUrl}/leave/Get_Attachments/${leave?.Id}`);
   }
 
-  updateLeaveRequest(value: any) {
-    return this.http.put(`${environment.apiUrl}/leave`, value);
+  updateLeaveRequest(value: any): Observable<any> {
+    return this.http.put(`${this.config.apiUrl}/leave/${value.id}`, value);
   }
 
+  getApproverByStream(userId: any): Observable<any> {
+    return this.http.get(`${this.config.apiUrl}/leave/approverByStream/${userId}`);
+  }
+
+  updateApprover(leaveId: string, approvers: any): Observable<any> {
+    return this.http.put(`${this.config.apiUrl}/leave/${leaveId}/approvers`, approvers);
+  }
 }

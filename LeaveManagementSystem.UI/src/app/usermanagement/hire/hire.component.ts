@@ -12,11 +12,11 @@ import { environment } from 'src/environments/environment';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-enrol',
-  templateUrl: './enrol.component.html',
-  styleUrls: ['./enrol.component.css'],
+  selector: 'app-hire',
+  templateUrl: './hire.component.html',
+  styleUrls: ['./hire.component.css'],
 })
-export class EnrolComponent implements OnInit {
+export class HireComponent implements OnInit {
   formModel: any;
   // formModel: FormGroup = new FormGroup({});
 
@@ -32,7 +32,7 @@ export class EnrolComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    public modalRef: MdbModalRef<EnrolComponent>,
+    public modalRef: MdbModalRef<HireComponent>,
     private toastr: ToastrService
   ) {}
 
@@ -70,10 +70,10 @@ export class EnrolComponent implements OnInit {
           value: user?.client,
           disabled: !this.editCrucialInfo,
         }],
-      LearnershipStartDate: [
+      WorkStartDate: [
         {
-          value: user?.learnershipStartDate
-          ? formatDate(new Date(user?.learnershipStartDate), 'yyyy-MM-dd', 'en')
+          value: user?.workStartDate
+          ? formatDate(new Date(user?.workStartDate), 'yyyy-MM-dd', 'en')
           : formatDate(new Date('0001-01-01'), 'yyyy-MM-dd', 'en'),
           disabled: !this.editCrucialInfo,
         },
@@ -179,31 +179,30 @@ export class EnrolComponent implements OnInit {
     }
   }
 
-  isLearner() {
+  isEmployee() {
     const role = this.formModel.controls['Role'].value;
     switch (role) {
       case Roles.Employee:
         return true;
       case Roles.Payroll_Admin:
-        this.setG4LDefaults();
+        this.setLMSDefaults();
         return false;
       case Roles.HR_Admin:
       case Roles.Manager:
-        this.setG4LDefaults();
+        this.setLMSDefaults();
         return false;
       default:
         return false;
     }
   }
 
-  setG4LDefaults() {
+  setLMSDefaults() {
     const today = Date.now();
 
     this.formModel.controls['Career'].patchValue(
       Streams.Please_select_a_stream
     );
-    this.formModel.controls['Client'].patchValue('');
-    this.formModel.controls['LearnershipStartDate'].patchValue(
+    this.formModel.controls['WorkStartDate'].patchValue(
       formatDate(new Date(new Date(today).toISOString()), 'yyyy-MM-dd', 'en')
     );
   }

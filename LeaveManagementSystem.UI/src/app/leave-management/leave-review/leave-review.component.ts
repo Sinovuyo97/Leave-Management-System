@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { constants } from 'buffer';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { ToastrService } from 'ngx-toastr';
-import { any, sortBy } from 'ramda';
 import { contants } from 'src/app/shared/global/global.contants';
 import { HalfDaySchedule } from 'src/app/shared/global/half-day-schedule';
 import { LeaveDayType } from 'src/app/shared/global/leave-day-type';
@@ -21,6 +19,11 @@ import { LeaveService } from '../services/leave.service';
   styleUrls: ['./leave-review.component.css']
 })
 export class LeaveReviewComponent implements OnInit {
+
+  isHR_Admin: boolean | undefined;
+  isPayroll_Admin: boolean | undefined;
+  isEmployee: boolean | undefined;
+  isManager: boolean | undefined;
 
   formModel: any;
   userId: any;
@@ -48,11 +51,30 @@ export class LeaveReviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.request);
     let user: any = this.tokenService.getDecodeToken();
     this.userId = user.id;
     this.role = sessionStorage.getItem(contants.role);
     this.buildForm(this.request);
     this.populateFormArrays();
+    this.determinRole(this.role);
+  }
+
+  determinRole(role: string | null) {
+    switch (role) {
+      case Roles.Manager:
+        this.isManager = true;
+        break;
+      case Roles.HR_Admin:
+        this.isHR_Admin = true;
+        break;
+      case Roles.Payroll_Admin:
+        this.isPayroll_Admin = true;
+        break;
+      case Roles.Employee:
+        this.isEmployee = true;
+        break;
+    }
   }
 
   buildForm(request: any) {
@@ -79,11 +101,11 @@ export class LeaveReviewComponent implements OnInit {
       this.formModel.get('approvers').push(this.approver(approver));
     });
 
-    this.request?.leaveSchedule
-      .forEach((schedule: any) => {
-      if (schedule?.leaveDayType === LeaveDayType.All_day) schedule.usedDays = 1;
-      this.formModel.get('leaveSchedule').push(this.leaveSchedule(schedule));
-    });
+    // this.request?.leaveSchedule
+    //   .forEach((schedule: any) => {
+    //   if (schedule?.leaveDayType === LeaveDayType.All_day) schedule.usedDays = 1;
+    //   this.formModel.get('leaveSchedule').push(this.leaveSchedule(schedule));
+    // });
 
     this.request?.documents.forEach((document: any) => {
       this.formModel.get('documents').push(this.document(document));
@@ -123,7 +145,7 @@ export class LeaveReviewComponent implements OnInit {
 
   // Start
   getLeaveBalance(leaveType: any) {
-    return this.request?.leaveBalances.find((x: any) => x.balanceType === leaveType);
+    return this.request?.usedDays;
   }
 
   updateLeaveStatus(status: any) {

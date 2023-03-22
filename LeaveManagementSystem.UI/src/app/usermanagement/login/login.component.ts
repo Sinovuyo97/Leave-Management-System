@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("date", this.date);
         sessionStorage.setItem(contants.time, this.loginTime);
         // route to the master layout
-        this.router.navigate(['/leave']);
+        this.router.navigate(['/dashboard']);
 
       },
         error => {

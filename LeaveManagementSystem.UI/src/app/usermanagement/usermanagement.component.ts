@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { EnrolComponent } from './enrol/enrol.component';
+import { HireComponent } from './hire/hire.component';
 import { contants } from '../shared/global/global.contants';
 import { Roles } from '../shared/global/roles';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,7 @@ export class UsermanagementComponent implements OnInit {
 
   users: any;
   userRole: any;
-  modalDialog: MdbModalRef<EnrolComponent> | null = null;
+  modalDialog: MdbModalRef<HireComponent> | null = null;
 
   constructor(
     private userService: UserService,
@@ -58,7 +58,7 @@ export class UsermanagementComponent implements OnInit {
   }
 
   openDialog(user?: any) {
-    this.modalDialog = this.modalService.open(EnrolComponent, {
+    this.modalDialog = this.modalService.open(HireComponent, {
       animation: true,
       backdrop: true,
       containerClass: 'modal top fade modal-backdrop',

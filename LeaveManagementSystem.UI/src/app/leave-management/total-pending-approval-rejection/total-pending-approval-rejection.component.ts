@@ -18,7 +18,7 @@ export class TotalPendingApprovalRejectionComponent implements OnInit {
     this.getAllLeaveApplications();
   }
   getAllLeaveApplications() {
-    this._leaveService.getAllLeaveApplications().subscribe((requests) => {
+    this._leaveService.getLeaveApplications().subscribe((requests) => {
       this.allRequests = requests;
       this.allRequests.forEach((x: any) => {
         if (x.status == "Approved") {

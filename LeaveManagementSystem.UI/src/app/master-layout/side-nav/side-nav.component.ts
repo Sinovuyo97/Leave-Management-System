@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Roles } from 'src/app/shared/global/roles';
-import { EnrolComponent } from 'src/app/usermanagement/enrol/enrol.component';
+import { HireComponent } from 'src/app/usermanagement/hire/hire.component';
 import { TokenService } from 'src/app/usermanagement/login/services/token.service';
 import { UserService } from 'src/app/usermanagement/services/user.service';
 import { NavItem } from '../models/nav-item';
@@ -16,7 +16,7 @@ export class SideNavComponent implements OnInit {
   holdingArray: FormGroup = new FormGroup({});
   user: any;
   navItems: NavItem[] = [];
-  modalDialog: MdbModalRef<EnrolComponent> | null = null;
+  modalDialog: MdbModalRef<HireComponent> | null = null;
   logoutTime: any;
   userId: any;
   date: any;
@@ -48,103 +48,48 @@ export class SideNavComponent implements OnInit {
       case Roles.Manager:
         return [
           {
-            name: 'Dashboard',
-            route: '/dashboard',
-            faIcon: 'fa-chart-line'
-          },
-          {
             name: 'User management',
             route: '/user-management',
             faIcon: 'fa-users-gear'
           },
           {
-            name: 'Attendence Register',
-            route: '/attendence-register',
-            faIcon: 'fa-solid fa-clipboard-user'
-          },
-          {
             name: 'Leave management',
             route: '/leave-management',
             faIcon: 'fa-person-walking-dashed-line-arrow-right'
-          },
-          {
-            name: 'IKM management',
-            route: '/ikm-management',
-            faIcon: 'fa-user-graduate'
           },
         ];
       case Roles.HR_Admin:
          return [
           {
-            name: 'Dashboard',
-            route: '/dashboard',
-            faIcon: 'fa-chart-line'
+            name: 'User management',
+            route: '/user-management',
+            faIcon: 'fa-users-gear'
           },
+          {
+            name: 'Leave management',
+            route: '/leave-management',
+            faIcon: 'fa-person-walking-dashed-line-arrow-right'
+          },
+        ];
+      case Roles.Payroll_Admin:
+         return [
           {
             name: 'User management',
             route: '/user-management',
             faIcon: 'fa-users-gear'
           },
           {
-            name: 'Attendence Register',
-            route: '/attendence-register',
-            faIcon: 'fa-solid fa-clipboard-user'
-          },
-          {
             name: 'Leave management',
             route: '/leave-management',
             faIcon: 'fa-person-walking-dashed-line-arrow-right'
           },
-          {
-            name: 'IKM management',
-            route: '/ikm-management',
-            faIcon: 'fa-user-graduate'
-          },
         ];
       case Roles.Employee:
          return [
-          {
-            name: 'Dashboard',
-            route: '/dashboard',
-            faIcon: 'fa-chart-line'
-          },
-          {
-            name: 'Attendence Register',
-            route: '/attendence-register',
-            faIcon: 'fa-solid fa-clipboard-user'
-          },
-          {
-            name: 'Leave management',
-            route: '/leave-management',
-            faIcon: 'fa-person-walking-dashed-line-arrow-right'
-          },
-          {
-            name: 'IKM management',
-            route: '/ikm-management',
-            faIcon: 'fa-user-graduate'
-          },
-        ];
-      case Roles.Employee:
-         return [
-          {
-            name: 'Dashboard',
-            route: '/dashboard',
-            faIcon: 'fa-chart-line'
-          },
-          {
-            name: 'Attendence Register',
-            route: '/attendence-register',
-            faIcon: 'fa-solid fa-clipboard-user'
-          },
           {
             name: 'Leave',
             route: '/leave-management',
             faIcon: 'fa-person-walking-dashed-line-arrow-right'
-          },
-          {
-            name: 'IKM',
-            route: '/ikm-management',
-            faIcon: 'fa-user-graduate'
           },
         ];
       default:
@@ -152,12 +97,8 @@ export class SideNavComponent implements OnInit {
     }
   }
 
-  openLMSinNewTab(url: string){
-    window.open(url, "_blank");
-  }
-
   openDialog(user?: any) {
-    this.modalDialog = this.modalService.open(EnrolComponent, {
+    this.modalDialog = this.modalService.open(HireComponent, {
       animation: true,
       backdrop: true,
       containerClass: 'right',

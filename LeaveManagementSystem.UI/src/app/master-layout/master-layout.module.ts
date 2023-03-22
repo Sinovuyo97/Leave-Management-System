@@ -6,13 +6,15 @@ import { ContentAreaComponent } from './content-area/content-area.component';
 import { MasterLayoutRoutingModule } from './master-layout.routing';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { MaterialModule } from '../shared/material/material.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-  declarations: [ MasterLayoutComponent, TopNavComponent, ContentAreaComponent, SideNavComponent ],
-  imports: [
-    CommonModule,
-    MasterLayoutRoutingModule,
-    MaterialModule
-  ]
+  declarations: [
+    MasterLayoutComponent,
+    TopNavComponent,
+    ContentAreaComponent,
+    SideNavComponent,
+  ],
+  imports: [CommonModule, MasterLayoutRoutingModule, MaterialModule],
 })
-export class MasterLayoutModule { }
+export class MasterLayoutModule {}

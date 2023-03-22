@@ -18,6 +18,7 @@ namespace LeaveManagementSystem.BL.Models.request
         public string Email { get; set; }
         public Career? Career { get; set; }
         public Role? Role { get; set; }
+        public DateTime WorkStartDate { get; set; }
         [Required]
         public string Password { get; set; }
     }
