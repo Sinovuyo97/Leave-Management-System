@@ -192,7 +192,7 @@ export class LeaveReviewComponent implements OnInit {
   }
 
   proposeChanges() {
-
+    
   }
 
   openOnNewTab(link: any) {

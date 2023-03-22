@@ -1,4 +1,4 @@
-<ng-container *ngIf="isHR_Admin || isPayroll_Admin;else employee">
+<ng-container *ngIf="isHR_Admin || isPayroll_Admin || isManager;else employee">
   <app-approver></app-approver>
 </ng-container>
 <ng-template #employee>

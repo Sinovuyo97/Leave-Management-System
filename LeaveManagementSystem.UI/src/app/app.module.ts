@@ -18,13 +18,11 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { UsermanagementModule } from './usermanagement/usermanagement.module';
 import { MasterLayoutModule } from './master-layout/master-layout.module';
 import { APP_SERVICE_CONFIG, APP_CONFIG } from './shared/app-config/app-configuration.service';
-import { NavbarareaComponent } from './navbararea/navbararea.component';
 
 @NgModule({
   declarations: [
     LoaderComponent,
     AppComponent,
-    NavbarareaComponent,
   ],
   imports: [
     CommonModule,

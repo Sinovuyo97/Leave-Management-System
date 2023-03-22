@@ -11,3 +11,9 @@ export class RemoveUnderscorePipe implements PipeTransform {
   }
 
 }
+export class LowerUpperPipeComponent {
+  value: string = '';
+  change(value: string) {
+    this.value = value;
+  }
+}

@@ -15,27 +15,27 @@ export class TotalPendingApprovalRejectionComponent implements OnInit {
   constructor(private _leaveService: LeaveService) { }
 
   ngOnInit() {
-    this.getAllLeaveApplications();
+    // this.getAllLeaveApplications();
   }
-  getAllLeaveApplications() {
-    this._leaveService.getLeaveApplications().subscribe((requests) => {
-      this.allRequests = requests;
-      this.allRequests.forEach((x: any) => {
-        if (x.status == "Approved") {
-          this.approved += 1;
+  // getAllLeaveApplications() {
+  //   this._leaveService.getLeaveApplications().subscribe((requests) => {
+  //     this.allRequests = requests;
+  //     this.allRequests.forEach((x: any) => {
+  //       if (x.status == "Approved") {
+  //         this.approved += 1;
           
 
-        } else if (x.status == "Pending") {
-          this.pending += 1;
-        }
-        else if (x.status == "Rejected") {
-          this.rejected += 1;
-        } else if (x.status == "Cancelled") {
-          this.cancelled += 1;
-        }
-        console.log(this.allRequests);
-      })
-    })
-  }
+  //       } else if (x.status == "Pending") {
+  //         this.pending += 1;
+  //       }
+  //       else if (x.status == "Rejected") {
+  //         this.rejected += 1;
+  //       } else if (x.status == "Cancelled") {
+  //         this.cancelled += 1;
+  //       }
+  //       console.log(this.allRequests);
+  //     })
+  //   })
+  // }
 
 }

@@ -7,6 +7,7 @@ import { MasterLayoutRoutingModule } from './master-layout.routing';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { MaterialModule } from '../shared/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { PipesModule } from '../shared/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { BrowserModule } from '@angular/platform-browser';
     ContentAreaComponent,
     SideNavComponent,
   ],
-  imports: [CommonModule, MasterLayoutRoutingModule, MaterialModule],
+  imports: [CommonModule, MasterLayoutRoutingModule, MaterialModule,PipesModule],
 })
 export class MasterLayoutModule {}

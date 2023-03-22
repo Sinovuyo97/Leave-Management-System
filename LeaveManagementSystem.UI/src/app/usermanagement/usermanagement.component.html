@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
   <div class="row align-items-center mb-4">
     <div class="col-8"></div>
-    <div class="col-4 text-end">
+    <div class="col-4 text-end" *ngIf="!isManager">
       <a
         class="btn btn-sm bg-2 gradient-primary mb-0 btn-dark"
         (click)="openDialog()"
@@ -96,10 +96,10 @@
                   </td>
                   <td class="align-middle text-xs ps-2">
                     <p class="font-weight-bold mb-0">
-                      {{ user?.learnershipStartDate | date: "dd/MM/YYYY" }}
+                      {{ user?.workStartDate | date: "dd/MM/YYYY" }}
                     </p>
                   </td>
-                  <td class="align-middle dropdown">
+                  <td class="align-middle dropdown"*ngIf="!isManager">
                     <button
                       class="btn btn-link text-secondary mb-0 dropdown-toggle"
                       type="button"

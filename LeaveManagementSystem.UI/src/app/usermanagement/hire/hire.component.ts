@@ -65,11 +65,7 @@ export class HireComponent implements OnInit {
           disabled: !this.editCrucialInfo,
         },
       ],
-      Client: [
-        {
-          value: user?.client,
-          disabled: !this.editCrucialInfo,
-        }],
+
       WorkStartDate: [
         {
           value: user?.workStartDate

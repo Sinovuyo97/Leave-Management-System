@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ToastrService } from 'ngx-toastr';
+import { contants } from 'src/app/shared/global/global.contants';
 import { LeaveStatus } from 'src/app/shared/global/leave-status';
 import { LeaveTypes } from 'src/app/shared/global/leave-types';
+import { Roles } from 'src/app/shared/global/roles';
 import { TokenService } from 'src/app/usermanagement/login/services/token.service';
 import { LeaveRequestComponent } from '../../leave-request/leave-request.component';
 import { LeaveReviewComponent } from '../../leave-review/leave-review.component';
@@ -14,7 +16,7 @@ import { LeaveService } from '../../services/leave.service';
   styleUrls: ['./approver.component.css']
 })
 export class ApproverComponent implements OnInit {
-
+  isManager: boolean | undefined;
   modalDialog: MdbModalRef<LeaveReviewComponent> | null = null;
   leaveApplications: any[] = [];
   user: any;
@@ -31,7 +33,20 @@ export class ApproverComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.tokenService.getDecodeToken();
     this.getLeavesToApprove(this.user?.id);
+    const role = sessionStorage.getItem(contants.role);
+    this.determinRole(role);
   }
+  determinRole(role: string | null) {
+    switch (role) {
+      case Roles.Manager:
+        this.isManager = true;
+        break;
+    
+      default:
+        break;
+    }
+  }
+  
 
   getLeavesToApprove(userId: any) {
     this.leaveService.getLeaveToApprove(userId)

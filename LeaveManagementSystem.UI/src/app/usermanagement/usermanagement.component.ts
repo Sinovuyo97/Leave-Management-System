@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UsermanagementComponent implements OnInit {
 
+  isManager: boolean | undefined;
   users: any;
   userRole: any;
   modalDialog: MdbModalRef<HireComponent> | null = null;
@@ -27,6 +28,17 @@ export class UsermanagementComponent implements OnInit {
     this.getAllUsers();
     // this.getPagedUsers(0, 10);
     this.userRole = sessionStorage.getItem(contants.role);
+    this.determineRole(this.userRole);
+  }
+  determineRole(userRole: any) {
+    switch (userRole) {
+      case Roles.Manager:
+        this.isManager = true;
+        break;
+    
+      default:
+        break;
+    }
   }
 
   getPagedUsers(skip: number, take: number) {

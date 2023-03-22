@@ -49,8 +49,8 @@ namespace LeaveManagementSystem.API.Controllers
             return Ok(leaveRequests);
         }
 
-        //[Authorize(Role.Manager,Role.HR_Administrator, Role.Payroll_Administrator)]
-        [AllowAnonymous]
+        [Authorize(Role.Manager,Role.HR_Administrator, Role.Payroll_Administrator)]
+        //[AllowAnonymous]
         [HttpGet("approve/{userId}")]
         public async Task<IActionResult> GetLeavesToApproveAsync(Guid userId)
         {

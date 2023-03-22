@@ -65,7 +65,7 @@ export class LeaveRequestComponent implements OnInit {
     this.userId = user.id;
     this.leaveTypes.push(LeaveTypes.Please_Select_A_Leave,LeaveTypes.Annual,LeaveTypes.Family_Responsibility,LeaveTypes.Sick,LeaveTypes.Unpaid)
     this.buildForm();
-    console.log(this.formModel.value)
+    console.log(this.userId)
   }
 
   buildForm() {
@@ -87,6 +87,11 @@ export class LeaveRequestComponent implements OnInit {
         },
         {
           "userId": "4DBA56DC-58DD-4BE3-835C-08DB1DA7A36A",
+          "status": "Pending",
+          "comments": ""
+        },
+        {
+          "userId": "776e370a-df10-4b58-a678-08db1cc9de42",
           "status": "Pending",
           "comments": ""
         }

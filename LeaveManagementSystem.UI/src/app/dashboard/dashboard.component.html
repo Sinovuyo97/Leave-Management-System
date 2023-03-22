@@ -1,11 +1,35 @@
-<ng-container *ngIf="isHR_Admin;else payrolladmin">
-  dashboard content for HR...
+<ng-container *ngIf="isHR_Admin; else payrolladmin">
+  <div class="container-fluid m-0 p-0">
+    <div class="card m-0 p-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h6 class="mb-0 text-uppsercase">HR Admin dashboard content coming soon...</h6>
+          </div>
+        </div>
+    </div>
+  </div>
 </ng-container>
 <ng-template #payrolladmin>
-    <ng-container *ngIf="isPayroll_Admin;else employee">
-      dashboard content for Payroll Admin...
-    </ng-container>
+  <ng-container *ngIf="isPayroll_Admin; else employee">
+    <div class="container-fluid m-0 p-0">
+      <div class="card m-0 p-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h6 class="mb-0 text-uppsercase">Payroll Admin dashboard content coming soon...</h6>
+            </div>
+          </div>
+      </div>
+    </div>
+  </ng-container>
 </ng-template>
 <ng-template #employee>
-  dashboard content for Employee...
+  <div class="container-fluid m-0 p-0">
+    <div class="card m-0 p-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h6 class="mb-0 text-uppsercase">Employee dashboard content coming soon...</h6>
+          </div>
+        </div>
+    </div>
+  </div>
 </ng-template>

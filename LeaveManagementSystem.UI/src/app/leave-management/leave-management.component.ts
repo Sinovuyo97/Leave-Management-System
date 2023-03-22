@@ -11,6 +11,7 @@ export class LeaveManagementComponent implements OnInit {
   isHR_Admin: boolean | undefined;
   isPayroll_Admin: boolean | undefined;
   isEmployee: boolean | undefined;
+  isManager: boolean | undefined;
 
   constructor(
   ) { }
@@ -23,6 +24,8 @@ export class LeaveManagementComponent implements OnInit {
   determinRole(role: string | null) {
     switch (role) {
       case Roles.Manager:
+        this.isManager = true;
+        break;
       case Roles.HR_Admin:
         this.isHR_Admin = true;
         break;

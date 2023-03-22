@@ -31,7 +31,7 @@
                   <tr>
                       <td class="align-middle text-xs ps-2">
                         <p class="text-secondary mb-0">
-                          names
+                          {{request?.user.name}} {{request?.user.surname}}
                         </p>
                       </td>
                       <td class="align-middle text-xs ps-2">
@@ -51,7 +51,7 @@
                             {{request.status}}</p>
                         </div>
                       </td>
-                      <td class="align-middle dropdown">
+                      <td class="align-middle dropdown" *ngIf="!isManager">
                         <button
                           class="btn btn-link text-secondary mb-0 dropdown-toggle"
                           type="button"
